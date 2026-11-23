@@ -1,0 +1,9 @@
+Place your two photographs in this folder using these exact filenames:
+
+1. diesel-bus.jpg
+   Used in the animated main comparison (one diesel bus carrying 48 passengers).
+
+2. diesel-vs-electric.jpg
+   Used in the final fleet-electrification section (diesel bus and EV bus side by side).
+
+Keep these filenames unchanged, or update the corresponding image src paths in index.html.
