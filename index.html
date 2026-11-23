@@ -853,8 +853,8 @@
             <div class="vehicle bus" id="bus">
               <img
                 class="bus-photo"
-                alt="TGSRTC green electric bus"
-                src="images/tgsrtc-electric-side.png"
+                alt="TGSRTC diesel bus"
+                src="images/diesel-bus.png"
               />
             </div>
             <div id="cars"></div>
@@ -866,21 +866,6 @@
           <div class="road-glow"></div>
           <div class="road-label" id="roadLabel">
             HYDERABAD · TRAFFIC MOVING RIGHT TO LEFT
-          </div>
-          <div
-            style="
-              position: absolute;
-              right: 16px;
-              bottom: 14px;
-              z-index: 9;
-              font-size: 10px;
-              color: #d9e8ef;
-              background: #071c2dcc;
-              padding: 5px 8px;
-              border-radius: 6px;
-            "
-          >
-            PHOTO: TGSRTC ELECTRIC BUS · MAIN CALCULATION: DIESEL BUS FACTOR
           </div>
         </div>
       </div>
@@ -895,14 +880,15 @@
         <div class="eyebrow">The comparison at a glance</div>
         <h2>One group of people. Three travel options.</h2>
         <p>
+          The following figures are taken from the information shared by TGSRTC.
           Each option moves the same 48 passengers over a standard 10 km urban
           journey.
         </p>
       </section>
       <section class="cards">
         <article class="card">
-          <small>OPTION 01 · BUS</small>
-          <h3>One TGSRTC bus</h3>
+          <small>OPTION 01 · DIESEL BUS</small>
+          <h3>One TGSRTC diesel bus</h3>
           <div class="big green">15 kg</div>
           <p>
             Total CO₂ emissions over 10 km. The bus carries all 48 passengers
@@ -934,7 +920,7 @@
           <thead>
             <tr>
               <th>Parameter</th>
-              <th>1 TGSRTC bus</th>
+              <th>1 TGSRTC diesel bus</th>
               <th>12 cars</th>
               <th>24 cars</th>
             </tr>
@@ -1171,12 +1157,19 @@
           const all = [...cars.children];
           all.forEach((c) => (c.style.opacity = 0));
           const bus = $("bus");
-          setVehicle(bus, "50%", "18%", 1.08, 0);
+          const busPhoto = bus.querySelector(".bus-photo");
+          const isEV = s.mode === "final";
+          const busBottom = isEV ? "18%" : "-20%";
+          busPhoto.src = isEV
+            ? "images/electric-bus.png"
+            : "images/diesel-bus.png";
+          busPhoto.alt = isEV ? "TGSRTC electric bus" : "TGSRTC diesel bus";
+          setVehicle(bus, "50%", busBottom, 1.08, 0);
           if (s.mode === "intro") {
-            setVehicle(bus, "50%", "18%", 1.12, 0);
+            setVehicle(bus, "50%", busBottom, 1.12, 0);
           }
           if (s.mode === "cars12" || s.mode === "carbonCars") {
-            setVehicle(bus, "22%", "18%", 0.72, 0);
+            setVehicle(bus, "22%", busBottom, 0.72, 0);
             all.slice(0, 12).forEach((c, n) => {
               const row = Math.floor(n / 6),
                 col = n % 6;
@@ -1194,10 +1187,10 @@
             s.mode === "busCarbon" ||
             s.mode === "final"
           ) {
-            setVehicle(bus, "50%", "18%", 1.18, 1);
+            setVehicle(bus, "50%", busBottom, 1.18, 1);
           }
           if (s.mode === "difference") {
-            setVehicle(bus, "50%", "18%", 1.2, 1);
+            setVehicle(bus, "50%", busBottom, 1.2, 1);
             all.slice(0, 12).forEach((c, n) => {
               setVehicle(
                 c,
